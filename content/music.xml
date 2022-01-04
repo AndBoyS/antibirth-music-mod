@@ -1,0 +1,27 @@
+<music root="music/">
+    <track name="Ambush No Intro" path="Ambush.ogg" loop="true" />
+    <track name="True Mom" intro="Modded/Mom Fight - The Turn [Intro].ogg" path="Modded/Mom Fight - The Turn [Loop].ogg" loop="true" />
+    <track name="Mom" path="Modded/Mom Fight - The Turn [Loop].ogg" loop="true" />
+	<track name="True Mom's Heart" intro="Modded/Mom's Heart - Gloria Filio [Intro].ogg" path="Modded/Mom's Heart - Gloria Filio [Loop].ogg" loop="true" />
+	<track name="Mom's Heart" path="Modded/Mom's Heart - Gloria Filio [Loop].ogg" loop="true" />
+	<track name="True Isaac Fight" intro="Modded/Isaac - Misericorde [Intro].ogg" path="Modded/Isaac - Misericorde [Loop].ogg" loop="true" />
+	<track name="Isaac Fight" path="Modded/Isaac - Misericorde [Loop].ogg" loop="true" />
+    <track name="True Mother" intro="Modded/Mother - Memento Mori [Intro].ogg" path="Modded/Mother - Memento Mori [Loop].ogg" loop="true" />
+    <track name="Mother" path="Modded/Mother - Memento Mori [Loop].ogg" loop="true" />
+    <track name="Mega Satan" intro="Modded/Mega Satan - Flagbearer [Intro].ogg" path="Modded/Mega Satan - Flagbearer [Loop].ogg" loop="true" />
+	<track name="Satan" intro="Fight Ogg/Satan Fight Intro.ogg" path="Fight Ogg/Satan Fight.ogg" loop="true" />
+    <track name="Greed Last Wave" path="Modded/Greed Last Wave - Tandava [Loop - Alt.2].ogg" loop="true" />
+    <track name="Blue Baby Alt" path="Modded/Blue Baby - Rapturepunk [Loop - Alt].ogg" loop="true" />
+    <track name="Satan Alt" intro="Fight Ogg/Satan Fight Intro.ogg" path="Modded/Satan - Spectrum of Sin [Loop - Alt].ogg" loop="true" />
+    <track name="Arcade Alt" intro="Modded/Arcade - $4cR1f1c14_  [Intro].ogg" path="Modded/Arcade - $4cR1f1c14_  [Loop].ogg" loop="true" />
+	<track name="The Void 0" intro="Modded/The Void - Allnoise [Intro].ogg" path="Modded/The Void - Allnoise [Loop].ogg" loop="true" />
+	<track name="The Void 1" path="Modded/The Void - Allnoise [Loop].ogg" loop="true" />
+    <track name="The Void 2" path="Modded/The Void - Allnoise [Loop - Alt.1].ogg" loop="true" />
+    <track name="The Void 3" path="Modded/The Void - Allnoise [Loop - Alt.2].ogg" loop="true" />
+    <track name="The Void 4" path="Modded/The Void - Allnoise [Loop - Alt.3].ogg" loop="true" />
+    <track name="The Void 5" path="Modded/The Void - Allnoise [Loop - Alt.4].ogg" loop="true" />
+    <track name="The Void 6" path="Modded/The Void - Allnoise [Loop - Alt.5].ogg" loop="true" />
+    <track name="The Void 7" path="Modded/The Void - Allnoise [Loop - Alt.6].ogg" loop="true" />
+	
+	<track name="blank" path="blank.ogg" loop="false" />
+</music>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>Antibirth music++</name>
+    <directory>antibirth music++</directory>
+    <id>1547034524</id>
+    <description>Now updated with 18 new tracks from Antibirth Vol. 3, which covers most of the AB+ content!
+
+This mod replaces almost all music (alt repentance floors/repentance endgame content excluded) in the game with Mudeth's compositions.
+
+[i]*not compatible with mods that change music.xml* [/i] (example aside some music mods: Dad Insults Edmund When You Die)
+
+
+[b] Features/Differences from other Antibirth Music Mods: [/b]
+
+[u] Music: [/u]
+ [i] Full Versions of [/i] 
+ - &quot;Hallowed Ground&quot; (Downpour)
+ - &quot;Lucidate&quot; (Library)
+
+ [i] Layered Version of [/i] 
+ - &quot;the Thief&quot; (Cathedral)
+
+ [i] New Music for [/i] 
+ - Mega Satan (&quot;The Flagbearer&quot;)
+ - Tainted Menu (&quot;Descent&quot;)
+ - Game Over (&quot;Journey from a Jar to the Sky&quot;)
+ - Credits/Alt Credits (&quot;Underscore&quot;/[url=https://twitter.com/htedum/status/1402159446336307200]&quot;Take Me Back Home&quot;[/url] )
+ - 11th Wave in Greed Mode (Alt of &quot;Tandava&quot;)
+ [i][url=https://docs.google.com/document/d/19049NXcudS0LmyQG6S3X4MdHwnR3J9DK1PwtB0tASmY/edit?usp=sharing] Full tracklist [/url][/i]
+[u] Tweaks: [/u]
+ [i] The Void Music plays from a random starting point [/i]
+ [i] Alternative starting point for Blue Baby and Satan (random chance of playing)[/i]
+ [i] DannyB's &quot;$4cR1f1c14_&quot; plays with a small chance in arcade [/i]
+ [i] Story Boss Intros like in Antibirth ([url=https://steamcommunity.com/sharedfiles/filedetails/?id=1916151924]standalone mod[/url]) for [/i]
+ - Mom on Mausoleum/Gehenna
+ - Mom's Heart on Mausoleum/Gehenna
+ - Mother
+ - Isaac
+
+[b] Check out the content that was used: [/b]
+ [url=https://mudeth.bandcamp.com/album/antibirth-ost] Antibirth Soundtrack [/url]
+ [url=https://www.youtube.com/watch?v=Ul-FVgyLPMI&amp;t=2721s] Spears 'n' Spades Soundtrack [/url] 
+ [url=https://www.youtube.com/watch?v=ChlL3Nqxw30] Andrew Malefices' Memento Mori Cover [/url] 
+ [url=https://www.youtube.com/watch?v=03urzQctbzs] Abel Smids' Machine in the Walls Cover [/url] 
+ [url=https://www.youtube.com/watch?v=6JdnuCU-Yj0&amp;t=60s] Machine in the Walls 8-bit Remix [/url]
+
+[b] Antibirth mods recommendations: [/b]
+ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2487751430]Antibirth Styled Logo [/url] 
+ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2502235092]Antibirth Game Intro with new credits [/url] 
+ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2465748203] Better Mausoleum Graphics [/url] 
+ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2462799075]More minimalistic Antibirth Music mod [/url] 
+ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2489813335] DannyB + Mudeth music mod [/url] 
+ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2497871141] AB+ version of this mod [/url]
+ </description>
+    <version>1.55</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Tweaks"/>
+    <tag id="Sound Effects"/>
+    <tag id="Music"/>
+</metadata>
