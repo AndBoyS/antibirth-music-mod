@@ -1,87 +1,91 @@
 antibirthmusicplusplus = RegisterMod("Antibirth Music++", 1)
 
 -- Unique intros for bosses
+
 -- .. concatenates string/numbers into one string
--- made to differentiate between base mom/mom's heart and antibirth one
 -- Entity + name of the stage -> Boss Music to play
-local EntityToMusic = {
-    [EntityType.ENTITY_ISAAC .. "Cathedral"]         = Isaac.GetMusicIdByName("True Isaac Fight"),
-    [EntityType.ENTITY_ISAAC .. "The Void"]          = Isaac.GetMusicIdByName("True Isaac Fight"),
-    [EntityType.ENTITY_MOM .. "Mausoleum II"]        = Isaac.GetMusicIdByName("True Mom"),
-    [EntityType.ENTITY_MOM .. "Mausoleum XL"]        = Isaac.GetMusicIdByName("True Mom"),
-    [EntityType.ENTITY_MOM .. "Gehenna II"]          = Isaac.GetMusicIdByName("True Mom"),
-    [EntityType.ENTITY_MOM .. "Gehenna XL"]          = Isaac.GetMusicIdByName("True Mom"),
-    [EntityType.ENTITY_MOMS_HEART .. "Mausoleum II"] = Isaac.GetMusicIdByName("True Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Mausoleum XL"] = Isaac.GetMusicIdByName("True Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Gehenna II"]   = Isaac.GetMusicIdByName("True Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Gehenna XL"]   = Isaac.GetMusicIdByName("True Mom's Heart"),
-    [EntityType.ENTITY_MOTHER .. "Corpse II"]        = Isaac.GetMusicIdByName("True Mother"),
-    [EntityType.ENTITY_MOTHER .. "Corpse XL"]        = Isaac.GetMusicIdByName("True Mother"),
-}
-local EntityToMusicNoIntro = {
-    [EntityType.ENTITY_ISAAC .. "Cathedral"]         = Isaac.GetMusicIdByName("Isaac Fight"),
-    [EntityType.ENTITY_ISAAC .. "The Void"]          = Isaac.GetMusicIdByName("Isaac Fight"),
-    [EntityType.ENTITY_MOM .. "Mausoleum II"]        = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Mausoleum XL"]        = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Gehenna II"]          = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Gehenna XL"]          = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOMS_HEART .. "Mausoleum II"] = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Mausoleum XL"] = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Gehenna II"]   = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Gehenna XL"]   = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOTHER .. "Corpse II"]        = Isaac.GetMusicIdByName("Mother"),
-    [EntityType.ENTITY_MOTHER .. "Corpse XL"]        = Isaac.GetMusicIdByName("Mother"),
-}
--- to queue base mom and moms heart music
-local EntityToMusicQueue = {
-    [EntityType.ENTITY_MOM .. "Depths II"]              = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Necropolis II"]          = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Dank Depths II"]         = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Depths XL"]              = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Necropolis XL"]          = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "Dank Depths XL"]         = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOM .. "The Void"]               = Isaac.GetMusicIdByName("Mom"),
-    [EntityType.ENTITY_MOMS_HEART .. "Womb II"]         = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Utero II"]        = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Scarred Womb II"] = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Womb XL"]         = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Utero XL"]        = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "Scarred Womb XL"] = Isaac.GetMusicIdByName("Mom's Heart"),
-    [EntityType.ENTITY_MOMS_HEART .. "The Void"]        = Isaac.GetMusicIdByName("Mom's Heart"),
+local EntityToMusicName = {
+    [EntityType.ENTITY_ISAAC .. "Cathedral"]         = "Isaac Fight",
+    [EntityType.ENTITY_ISAAC .. "The Void"]          = "Isaac Fight",
+    
+    [EntityType.ENTITY_MOM .. "Depths"]              = "Mom",
+    [EntityType.ENTITY_MOM .. "Necropolis"]          = "Mom",
+    [EntityType.ENTITY_MOM .. "Dank Depths"]         = "Mom",
+    [EntityType.ENTITY_MOM .. "Mausoleum"]           = "Mom",
+    [EntityType.ENTITY_MOM .. "Gehenna"]             = "Mom",
+    
+    [EntityType.ENTITY_MOMS_HEART .. "Womb"]         = "Mom's Heart",
+    [EntityType.ENTITY_MOMS_HEART .. "Utero"]        = "Mom's Heart",
+    [EntityType.ENTITY_MOMS_HEART .. "Scarred Womb"] = "Mom's Heart",
+    [EntityType.ENTITY_MOMS_HEART .. "Mausoleum"]    = "Mom's Heart",
+    [EntityType.ENTITY_MOMS_HEART .. "Gehenna"]      = "Mom's Heart",
+    [EntityType.ENTITY_MOMS_HEART .. "The Void"]     = "Mom's Heart",
+    
+    [EntityType.ENTITY_MOTHER .. "Corpse"]           = "Mother",
 }
 
+local function GetStageId(level)
+  return level:GetRoomByIdx(level:QueryRoomTypeIndex(RoomType.ROOM_DEFAULT,nil,RNG())).Data.StageID
+end
+
+local StageIdToName = {
+    [6] = "The Void",
+    [7] = "Depths",
+    [8] = "Necropolis",
+    [9] = "Dank Depths",
+    [10] = "Womb",
+    [11] = "Utero",
+    [12] = "Scarred Womb",
+    [15] = "Cathedral",
+    [31] = "Mausoleum",
+    [32] = "Gehenna",
+    [33] = "Corpse",
+}
+
+local function CrossfadeFunc(TrackId)
+  MusicManager():Crossfade(TrackId)
+end
+
+local function QueueFunc(TrackId)
+  MusicManager():Queue(TrackId, 0)
+end
+
+
 function antibirthmusicplusplus:intros()
-  local MusicM = MusicManager()
-  local currentMusic = MusicM:GetCurrentMusicID()
+  local currentMusic = MusicManager():GetCurrentMusicID()
   local room = Game():GetRoom()
-  local stage = Game():GetLevel():GetStage()
-  local stageName = Game():GetLevel():GetName()
+  local stageId = GetStageId(Game():GetLevel())
+  local stageName = StageIdToName[stageId]
   
+  -- TrackMode == 1 -> main mode, play full version
+  -- TrackMode == 2 -> queue the music after loading the game from main menu
   if currentMusic == Music.MUSIC_JINGLE_BOSS then
+    TrackMode = 1
+    playFunc = CrossfadeFunc
+  elseif room:GetType() == RoomType.ROOM_BOSS 
+      and (currentMusic == Music.MUSIC_JINGLE_GAME_START or currentMusic == Music.MUSIC_JINGLE_GAME_START_ALT) then
+    TrackMode = 2
+    playFunc = QueueFunc
+  end
+  
+  if TrackMode then
     for i,v in ipairs(Isaac.GetRoomEntities()) do
-      trackToPlay = EntityToMusic[v.Type .. stageName]
-      trackToQueue = EntityToMusicQueue[v.Type .. stageName]
+      trackName = EntityToMusicName[v.Type .. stageName]
+      trackToPlay = trackName
+      
+      if trackName and TrackMode == 1 then
+        trackToPlay = Isaac.GetMusicIdByName("True " .. trackName)
+      elseif trackName and TrackMode == 2 then
+        trackToPlay = Isaac.GetMusicIdByName(trackName)
+      end
       
       if trackToPlay and currentMusic ~= trackToPlay then
-        MusicM:Crossfade(trackToPlay)
-      -- Play the music when intro screen is closed
-      -- Roomshape defined to evade Delirium boss room
-      elseif trackToQueue and Game():GetHUD():IsVisible() and Game():GetRoom():GetRoomShape() == RoomShape.ROOMSHAPE_1x1 then
-        MusicManager():Crossfade(trackToQueue)
+        playFunc(trackToPlay)
       end
+      
     end
   end
-    
-  if room:GetType() == RoomType.ROOM_BOSS 
-  and (currentMusic == Music.MUSIC_JINGLE_GAME_START or currentMusic == Music.MUSIC_JINGLE_GAME_START_ALT) then
-    
-    for i,v in ipairs(Isaac.GetRoomEntities()) do
-      trackToQueue = (EntityToMusicNoIntro[v.Type .. stageName] or EntityToMusicQueue[v.Type .. stageName])
-      if trackToQueue and currentMusic ~= trackToQueue then
-        MusicM:Queue(trackToQueue, 0)
-      end
-    end
-  end
+  
 end
 
 
