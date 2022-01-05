@@ -3,10 +3,15 @@ antibirthmusicplusplus = RegisterMod("Antibirth Music++", 1)
 -- Unique intros for bosses
 
 local BossIdToName = {
-    [88] = "Mother",
     [6] = "Mom",
     [25] = "Mom's Heart",
     [39] = "Isaac",
+--    [24] = "Satan",
+    [40] = "Blue Baby",
+    [54] = "Lamb",
+    [70] = "Delirium",
+    [88] = "Mother",
+    [62] = "Ultra Greed",
 }
 
 -- Play boss intro
@@ -29,6 +34,7 @@ end
 function antibirthmusicplusplus:intros()
   local currentMusic = MusicManager():GetCurrentMusicID()
   local room = Game():GetRoom()
+  local trackMode = nil
   
   -- TrackMode == 1 -> main mode, play full version
   -- TrackMode == 2 -> queue the music after loading the game from main menu
@@ -246,7 +252,8 @@ function antibirthmusicplusplus:storyboss()
     MusicM:Play(Isaac.GetMusicIdByName("Satan Alt"), 0)
     MusicM:UpdateVolume()
   end
-  if currentMusic == Music.MUSIC_BLUEBABY_BOSS 
+  if (currentMusic == Isaac.GetMusicIdByName("Blue Baby")
+  or currentMusic == Isaac.GetMusicIdByName("True Blue Baby"))
   and BossToRandom["Blue Baby"] == 1 then
     MusicM:Play(Isaac.GetMusicIdByName("Blue Baby Alt"), 0)
     MusicM:UpdateVolume()

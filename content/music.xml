@@ -1,5 +1,6 @@
 <music root="music/">
     <track name="Ambush No Intro" path="Ambush.ogg" loop="true" />
+	<!--"True" means with intro (in some cases there is no intro, but for consistency we still create "True" copy)-->
     <track name="True Mom" intro="Modded/Mom Fight - The Turn [Intro].ogg" path="Modded/Mom Fight - The Turn [Loop].ogg" loop="true" />
     <track name="Mom" path="Modded/Mom Fight - The Turn [Loop].ogg" loop="true" />
 	<track name="True Mom's Heart" intro="Modded/Mom's Heart - Gloria Filio [Intro].ogg" path="Modded/Mom's Heart - Gloria Filio [Loop].ogg" loop="true" />
@@ -8,10 +9,21 @@
 	<track name="Isaac Fight" path="Modded/Isaac - Misericorde [Loop].ogg" loop="true" />
     <track name="True Mother" intro="Modded/Mother - Memento Mori [Intro].ogg" path="Modded/Mother - Memento Mori [Loop].ogg" loop="true" />
     <track name="Mother" path="Modded/Mother - Memento Mori [Loop].ogg" loop="true" />
+	<track name="True Blue Baby" intro="Fight Ogg/Chest Fight Intro.ogg" path="Fight Ogg/Chest Fight.ogg" loop="true" />
+	<track name="Blue Baby" path="Fight Ogg/Chest Fight.ogg" loop="true" />
+	<track name="True Blue Baby Alt" path="Modded/Blue Baby - Rapturepunk [Loop - Alt].ogg" loop="true" />
+	<track name="Blue Baby Alt" path="Modded/Blue Baby - Rapturepunk [Loop - Alt].ogg" loop="true" />
+	<track name="True Lamb" intro="Fight Ogg/Dark Room Fight Intro.ogg" path="Fight Ogg/Dark Room Fight.ogg" loop="true" />
+	<track name="Lamb" path="Fight Ogg/Dark Room Fight.ogg" loop="true" />
+	<track name="True Delirium" intro="Fight Ogg/Delirium Fight Intro.ogg" path="Fight Ogg/Delirium Fight.ogg" loop="true" />
+	<track name="Delirium" path="Fight Ogg/Delirium Fight.ogg" loop="true" />
+	<track name="True Ultra Greed" intro="Afterbirth/Chorus Mortis (Punk Credit) Intro.ogg" path="Afterbirth/Chorus Mortis (Punk Credit) Loop.ogg" loop="true" />
+	<track name="Ultra Greed" path="Afterbirth/Chorus Mortis (Punk Credit) Loop.ogg" loop="true" />
+	
     <track name="Mega Satan" intro="Modded/Mega Satan - Flagbearer [Intro].ogg" path="Modded/Mega Satan - Flagbearer [Loop].ogg" loop="true" />
 	<track name="Satan" intro="Fight Ogg/Satan Fight Intro.ogg" path="Fight Ogg/Satan Fight.ogg" loop="true" />
     <track name="Greed Last Wave" path="Modded/Greed Last Wave - Tandava [Loop - Alt.2].ogg" loop="true" />
-    <track name="Blue Baby Alt" path="Modded/Blue Baby - Rapturepunk [Loop - Alt].ogg" loop="true" />
+    
     <track name="Satan Alt" intro="Fight Ogg/Satan Fight Intro.ogg" path="Modded/Satan - Spectrum of Sin [Loop - Alt].ogg" loop="true" />
     <track name="Arcade Alt" intro="Modded/Arcade - $4cR1f1c14_  [Intro].ogg" path="Modded/Arcade - $4cR1f1c14_  [Loop].ogg" loop="true" />
 	<track name="The Void 0" intro="Modded/The Void - Allnoise [Intro].ogg" path="Modded/The Void - Allnoise [Loop].ogg" loop="true" />
