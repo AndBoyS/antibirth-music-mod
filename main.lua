@@ -2,88 +2,52 @@ antibirthmusicplusplus = RegisterMod("Antibirth Music++", 1)
 
 -- Unique intros for bosses
 
--- .. concatenates string/numbers into one string
--- Entity + name of the stage -> Boss Music to play
-local EntityToMusicName = {
-    [EntityType.ENTITY_ISAAC .. "Cathedral"]         = "Isaac Fight",
-    [EntityType.ENTITY_ISAAC .. "The Void"]          = "Isaac Fight",
-    
-    [EntityType.ENTITY_MOM .. "Depths"]              = "Mom",
-    [EntityType.ENTITY_MOM .. "Necropolis"]          = "Mom",
-    [EntityType.ENTITY_MOM .. "Dank Depths"]         = "Mom",
-    [EntityType.ENTITY_MOM .. "Mausoleum"]           = "Mom",
-    [EntityType.ENTITY_MOM .. "Gehenna"]             = "Mom",
-    
-    [EntityType.ENTITY_MOMS_HEART .. "Womb"]         = "Mom's Heart",
-    [EntityType.ENTITY_MOMS_HEART .. "Utero"]        = "Mom's Heart",
-    [EntityType.ENTITY_MOMS_HEART .. "Scarred Womb"] = "Mom's Heart",
-    [EntityType.ENTITY_MOMS_HEART .. "Mausoleum"]    = "Mom's Heart",
-    [EntityType.ENTITY_MOMS_HEART .. "Gehenna"]      = "Mom's Heart",
-    [EntityType.ENTITY_MOMS_HEART .. "The Void"]     = "Mom's Heart",
-    
-    [EntityType.ENTITY_MOTHER .. "Corpse"]           = "Mother",
+local BossIdToName = {
+    [88] = "Mother",
+    [6] = "Mom",
+    [25] = "Mom's Heart",
+    [39] = "Isaac",
 }
 
-local function GetStageId(level)
-  return level:GetRoomByIdx(level:QueryRoomTypeIndex(RoomType.ROOM_DEFAULT,nil,RNG())).Data.StageID
+-- Play boss intro
+local function CrossfadeFunc(trackName, currentMusic)
+  trackId = Isaac.GetMusicIdByName("True " .. trackName)
+  if trackId and currentMusic ~= trackId then
+    MusicManager():Crossfade(trackId)
+  end
 end
 
-local StageIdToName = {
-    [6] = "The Void",
-    [7] = "Depths",
-    [8] = "Necropolis",
-    [9] = "Dank Depths",
-    [10] = "Womb",
-    [11] = "Utero",
-    [12] = "Scarred Womb",
-    [15] = "Cathedral",
-    [31] = "Mausoleum",
-    [32] = "Gehenna",
-    [33] = "Corpse",
-}
-
-local function CrossfadeFunc(TrackId)
-  MusicManager():Crossfade(TrackId)
-end
-
-local function QueueFunc(TrackId)
-  MusicManager():Queue(TrackId, 0)
+-- Queue boss track (when loading from main menu)
+local function QueueFunc(trackName, currentMusic)
+  trackId = Isaac.GetMusicIdByName(trackName)
+  if trackId and currentMusic ~= trackId then
+    MusicManager():Queue(trackId, 0)
+  end
 end
 
 
 function antibirthmusicplusplus:intros()
   local currentMusic = MusicManager():GetCurrentMusicID()
   local room = Game():GetRoom()
-  local stageId = GetStageId(Game():GetLevel())
-  local stageName = StageIdToName[stageId]
   
   -- TrackMode == 1 -> main mode, play full version
   -- TrackMode == 2 -> queue the music after loading the game from main menu
   if currentMusic == Music.MUSIC_JINGLE_BOSS then
-    TrackMode = 1
+    trackMode = 1
     playFunc = CrossfadeFunc
   elseif room:GetType() == RoomType.ROOM_BOSS 
       and (currentMusic == Music.MUSIC_JINGLE_GAME_START or currentMusic == Music.MUSIC_JINGLE_GAME_START_ALT) then
-    TrackMode = 2
+    trackMode = 2
     playFunc = QueueFunc
   end
   
-  if TrackMode then
-    for i,v in ipairs(Isaac.GetRoomEntities()) do
-      trackName = EntityToMusicName[v.Type .. stageName]
-      trackToPlay = trackName
-      
-      if trackName and TrackMode == 1 then
-        trackToPlay = Isaac.GetMusicIdByName("True " .. trackName)
-      elseif trackName and TrackMode == 2 then
-        trackToPlay = Isaac.GetMusicIdByName(trackName)
-      end
-      
-      if trackToPlay and currentMusic ~= trackToPlay then
-        playFunc(trackToPlay)
-      end
-      
+  if trackMode then
+    
+    trackName = BossIdToName[room:GetBossID()]
+    if trackName then
+      playFunc(trackName, currentMusic)
     end
+    
   end
   
 end
