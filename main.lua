@@ -121,7 +121,7 @@ function antibirthmusicplusplus:void()
   local MusicM = MusicManager()
   local currentMusic = MusicM:GetCurrentMusicID()
   
-  
+  -- Stage music
   if Game():GetLevel():GetStage() == LevelStage.STAGE7 
   and Game():GetRoom():GetType() == RoomType.ROOM_DEFAULT 
   and not has_value(VoidMusic, currentMusic)
@@ -131,12 +131,18 @@ function antibirthmusicplusplus:void()
     or currentMusic == Music.MUSIC_JINGLE_GAME_START_ALT then
       MusicM:Queue(VoidMusic[1])
     elseif Game():GetRoom():IsFirstVisit() then
-      MusicM:Play(VoidMusic[1],0)
-      MusicM:UpdateVolume()
+      MusicM:Crossfade(VoidMusic[1])
     else
-      MusicM:Play(VoidMusic[math.random(2,8)],0)
-      MusicM:UpdateVolume()
+      MusicM:Crossfade(VoidMusic[math.random(2,8)])
     end
+  end
+  
+  -- Ordinary bosses
+  if Game():GetLevel():GetStage() == LevelStage.STAGE7 
+  and (currentMusic == Music.MUSIC_BOSS or currentMusic == Music.MUSIC_BOSS2) then
+    trackId = Isaac.GetMusicIdByName("The Void Boss " .. math.random(1,6))
+    --trackId = Isaac.GetMusicIdByName("The Void Boss " .. 3)
+    MusicM:Crossfade(trackId)
   end
 end
 

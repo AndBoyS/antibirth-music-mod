@@ -35,5 +35,11 @@
     <track name="The Void 6" path="Modded/The Void - Allnoise [Loop - Alt.5].ogg" loop="true" />
     <track name="The Void 7" path="Modded/The Void - Allnoise [Loop - Alt.6].ogg" loop="true" />
 	
+	<track name="The Void Boss 1" intro="Modded/The Void Boss - My Innermost Apocalypse [Intro - Alt.1].ogg" path="Modded/The Void Boss - My Innermost Apocalypse [Loop - Alt.1].ogg" loop="true" />
+	<track name="The Void Boss 2" path="Modded/The Void Boss - Twelve [Loop - Alt.2].ogg" loop="true" />
+	<track name="The Void Boss 3" intro="Modded/The Void Boss - Divine Combat [Intro - Alt.3].ogg" path="Modded/The Void Boss - Divine Combat [Loop - Alt.3].ogg" loop="true" />
+	<track name="The Void Boss 4" path="Modded/The Void Boss - The Future [Loop - Alt.4].ogg" loop="true" />
+	<track name="The Void Boss 5" path="Modded/The Void Boss - Morituros [Loop - Alt.5].ogg" loop="true" />
+	
 	<track name="blank" path="blank.ogg" loop="false" />
 </music>
