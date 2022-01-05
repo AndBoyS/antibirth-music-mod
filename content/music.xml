@@ -5,8 +5,8 @@
     <track name="Mom" path="Modded/Mom Fight - The Turn [Loop].ogg" loop="true" />
 	<track name="True Mom's Heart" intro="Modded/Mom's Heart - Gloria Filio [Intro].ogg" path="Modded/Mom's Heart - Gloria Filio [Loop].ogg" loop="true" />
 	<track name="Mom's Heart" path="Modded/Mom's Heart - Gloria Filio [Loop].ogg" loop="true" />
-	<track name="True Isaac Fight" intro="Modded/Isaac - Misericorde [Intro].ogg" path="Modded/Isaac - Misericorde [Loop].ogg" loop="true" />
-	<track name="Isaac Fight" path="Modded/Isaac - Misericorde [Loop].ogg" loop="true" />
+	<track name="True Isaac" intro="Modded/Isaac - Misericorde [Intro].ogg" path="Modded/Isaac - Misericorde [Loop].ogg" loop="true" />
+	<track name="Isaac" path="Modded/Isaac - Misericorde [Loop].ogg" loop="true" />
     <track name="True Mother" intro="Modded/Mother - Memento Mori [Intro].ogg" path="Modded/Mother - Memento Mori [Loop].ogg" loop="true" />
     <track name="Mother" path="Modded/Mother - Memento Mori [Loop].ogg" loop="true" />
 	<track name="True Blue Baby" intro="Fight Ogg/Chest Fight Intro.ogg" path="Fight Ogg/Chest Fight.ogg" loop="true" />

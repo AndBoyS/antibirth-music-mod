@@ -140,8 +140,8 @@ function antibirthmusicplusplus:void()
   -- Ordinary bosses
   if Game():GetLevel():GetStage() == LevelStage.STAGE7 
   and (currentMusic == Music.MUSIC_BOSS or currentMusic == Music.MUSIC_BOSS2) then
-    trackId = Isaac.GetMusicIdByName("The Void Boss " .. math.random(1,6))
-    --trackId = Isaac.GetMusicIdByName("The Void Boss " .. 3)
+    trackId = Isaac.GetMusicIdByName("The Void Boss " .. math.random(1,5))
+    --trackId = Isaac.GetMusicIdByName("The Void Boss " .. 5)
     MusicM:Crossfade(trackId)
   end
 end
