@@ -189,23 +189,21 @@ function antibirthmusicplusplus:miniboss()
 end
 
 
--- Alt start time for story bosses music
-local BossToRandom = {
-  ["Satan"] = math.random(1,2),
-  ["Blue Baby"] = math.random(1,2),
-  ["Arcade"] = math.random(1,5),
-}
-function antibirthmusicplusplus:storyboss()
+-- Alt tracks that play randomly
+local BossToRandom = nil
+-- Executes with MC_POST_NEW_ROOM callback
+local function UpdateBossToRandom()
+  BossToRandom = {
+    ["Satan"] = math.random(1,2),
+    ["Blue Baby"] = math.random(1,2),
+    ["Arcade"] = math.random(1,10),
+  }
+end
+UpdateBossToRandom()
+
+function antibirthmusicplusplus:alttracks()
   local MusicM = MusicManager()
   local currentMusic = MusicM:GetCurrentMusicID()
-  
-  if Game():GetRoom():IsFirstVisit() and Game():GetRoom():GetType() == RoomType.ROOM_DEFAULT then
-    BossToRandom = {
-      ["Satan"] = math.random(1,2),
-      ["Blue Baby"] = math.random(1,2),
-      ["Arcade"] = math.random(1,5),
-    }
-  end
   
   if Game():GetLevel():GetStage() == LevelStage.STAGE5 and currentMusic == Music.MUSIC_SATAN_BOSS 
   and BossToRandom["Satan"] == 1 then
@@ -219,7 +217,7 @@ function antibirthmusicplusplus:storyboss()
     MusicM:UpdateVolume()
   end
   if currentMusic == Music.MUSIC_ARCADE_ROOM
-  and BossToRandom["Arcade"] == 5 then
+  and BossToRandom["Arcade"] == 1 then
     MusicM:Play(Isaac.GetMusicIdByName("Arcade Alt"), 0)
     MusicM:UpdateVolume()
   end
@@ -233,5 +231,7 @@ antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicpl
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.void)
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicplusplus.greedlastwave) 
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.miniboss)
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.storyboss)
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UpdateBossToRandom)
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.alttracks)
+
  

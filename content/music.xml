@@ -11,8 +11,7 @@
     <track name="Mother" path="Modded/Mother - Memento Mori [Loop].ogg" loop="true" />
 	<track name="True Blue Baby" intro="Fight Ogg/Chest Fight Intro.ogg" path="Fight Ogg/Chest Fight.ogg" loop="true" />
 	<track name="Blue Baby" path="Fight Ogg/Chest Fight.ogg" loop="true" />
-	<track name="True Blue Baby Alt" path="Modded/Blue Baby - Rapturepunk [Loop - Alt].ogg" loop="true" />
-	<track name="Blue Baby Alt" path="Modded/Blue Baby - Rapturepunk [Loop - Alt].ogg" loop="true" />
+	
 	<track name="True Lamb" intro="Fight Ogg/Dark Room Fight Intro.ogg" path="Fight Ogg/Dark Room Fight.ogg" loop="true" />
 	<track name="Lamb" path="Fight Ogg/Dark Room Fight.ogg" loop="true" />
 	<track name="True Delirium" intro="Fight Ogg/Delirium Fight Intro.ogg" path="Fight Ogg/Delirium Fight.ogg" loop="true" />
@@ -25,7 +24,9 @@
     <track name="Greed Last Wave" path="Modded/Greed Last Wave - Tandava [Loop - Alt.2].ogg" loop="true" />
     
     <track name="Satan Alt" intro="Fight Ogg/Satan Fight Intro.ogg" path="Modded/Satan - Spectrum of Sin [Loop - Alt].ogg" loop="true" />
+	<track name="Blue Baby Alt" path="Modded/Blue Baby - Rapturepunk [Loop - Alt].ogg" loop="true" />
     <track name="Arcade Alt" intro="Modded/Arcade - $4cR1f1c14_  [Intro].ogg" path="Modded/Arcade - $4cR1f1c14_  [Loop].ogg" loop="true" />
+	
 	<track name="The Void 0" intro="Modded/The Void - Allnoise [Intro].ogg" path="Modded/The Void - Allnoise [Loop].ogg" loop="true" />
 	<track name="The Void 1" path="Modded/The Void - Allnoise [Loop].ogg" loop="true" />
     <track name="The Void 2" path="Modded/The Void - Allnoise [Loop - Alt.1].ogg" loop="true" />
