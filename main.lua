@@ -59,20 +59,33 @@ function antibirthmusicplusplus:intros()
 end
 
 
+-- Play BB theme during hush fight manually (because we deleted its music in music.xml to allow unique intros)
+function antibirthmusicplusplus:bluebabyhush()
+  local stage = Game():GetLevel():GetStage()
+  local currentMusic = MusicManager():GetCurrentMusicID()
+  local bbTrack = Isaac.GetMusicIdByName("True Blue Baby")
+  
+  if stage == LevelStage.STAGE4_3 then
+    
+    for i,v in ipairs(Isaac.GetRoomEntities()) do
+      
+      if v.Type == EntityType.ENTITY_ISAAC and v.Variant == 2 
+      and currentMusic ~= bbTrack and currentMusic ~= Isaac.GetMusicIdByName("Blue Baby Alt")
+      and currentMusic ~= Music.MUSIC_HUSH_BOSS then
+        MusicManager():Crossfade(bbTrack)
+      end
+    end
+  end
+end
 
 
-
-
-
-
------------------------------------------------------------------------------------------------------------------------
 function antibirthmusicplusplus:megasatan()
   local MusicM = MusicManager()
   local currentMusic = MusicM:GetCurrentMusicID()
-  local GetStage = Game():GetLevel():GetStage()
+  local stage = Game():GetLevel():GetStage()
   
   --unique Mega Satan music
-  if GetStage == LevelStage.STAGE6 and currentMusic == Music.MUSIC_SATAN_BOSS then
+  if stage == LevelStage.STAGE6 and currentMusic == Music.MUSIC_SATAN_BOSS then
     if math.random(1,2) == 1 then
       MusicM:Play(Isaac.GetMusicIdByName("Mega Satan"),0)
       MusicM:UpdateVolume()
@@ -84,14 +97,6 @@ function antibirthmusicplusplus:megasatan()
 end
 
 
-
-
-
-
-
-
-
------------------------------------------------------------------------------------------------------------------------
 -- Tracks for void that play randomly
 -- The Void 0 is the original track with intro
 -- Other ones are only loops starting from a different point
@@ -147,23 +152,6 @@ function antibirthmusicplusplus:void()
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
------------------------------------------------------------------------------------------------------------------------
 function antibirthmusicplusplus:greedlastwave()
   local MusicM = MusicManager()
   local currentMusic = MusicM:GetCurrentMusicID()
@@ -182,23 +170,6 @@ function antibirthmusicplusplus:greedlastwave()
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
------------------------------------------------------------------------------------------------------------------------
 -- Ambush theme without intro for minibosses
 local RoomWithMinibosses = {RoomType.ROOM_MINIBOSS,
 			    RoomType.ROOM_SHOP,
@@ -218,23 +189,6 @@ function antibirthmusicplusplus:miniboss()
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
------------------------------------------------------------------------------------------------------------------------
 -- Alt start time for story bosses music
 local BossToRandom = {
   ["Satan"] = math.random(1,2),
@@ -271,16 +225,10 @@ function antibirthmusicplusplus:storyboss()
   end
 end
 
-
-
-
-
-
-
-
   --Isaac.RenderText(,100,100,255,0,0,255)
   --Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.ANGEL, -1)
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.intros)
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.bluebabyhush)
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicplusplus.megasatan)
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.void)
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicplusplus.greedlastwave) 
