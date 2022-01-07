@@ -4,6 +4,7 @@ antibirthmusicplusplus = RegisterMod("Antibirth Music++", 1)
 
 local BossIdToName = {
     [6] = "Mom",
+    [8] = "Mom's Heart",
     [25] = "Mom's Heart",
     [39] = "Isaac",
 --    [24] = "Satan",
