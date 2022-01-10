@@ -1,4 +1,20 @@
 antibirthmusicplusplus = RegisterMod("Antibirth Music++", 1)
+local SaveState = {}
+
+-- ModConfig variables
+-- Mega satan options: 
+-- 0: play both
+-- 1: Flagbearer
+-- 2: Spectrum of Sin
+local ModConfigSettings = {
+	["boss intros"] = true,
+  ["mega satan"] = 0, 
+  ["void stage"] = true,
+  ["void bosses"] = true,
+  ["alt arcade"] = true,
+}
+-- setting this to "true" will override ModConfig values
+local defaultsChanged = false
 
 -- Unique intros for bosses
 
@@ -51,13 +67,16 @@ function antibirthmusicplusplus:intros()
   if trackMode then
     
     trackName = BossIdToName[room:GetBossID()]
-    if trackName then
+    -- if Story Boss Intros are disabled, play the music after the intro screen is finished
+    if trackName and (ModConfigSettings["boss intros"] or Game():GetHUD():IsVisible()) then
       playFunc(trackName, currentMusic)
     end
     
   end
   
 end
+
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.intros)
 
 
 -- Play BB theme during hush fight manually (because we deleted its music in music.xml to allow unique intros)
@@ -79,6 +98,8 @@ function antibirthmusicplusplus:bluebabyhush()
   end
 end
 
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.bluebabyhush)
+
 
 function antibirthmusicplusplus:megasatan()
   local MusicM = MusicManager()
@@ -87,7 +108,8 @@ function antibirthmusicplusplus:megasatan()
   
   --unique Mega Satan music
   if stage == LevelStage.STAGE6 and currentMusic == Music.MUSIC_SATAN_BOSS then
-    if math.random(1,2) == 1 then
+    if (math.random(1,2) == 1 or ModConfigSettings["mega satan"] == 1)
+    and ModConfigSettings["mega satan"] ~= 2 then
       MusicM:Play(Isaac.GetMusicIdByName("Mega Satan"),0)
       MusicM:UpdateVolume()
     else
@@ -96,6 +118,8 @@ function antibirthmusicplusplus:megasatan()
     end
   end
 end
+
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicplusplus.megasatan)
 
 
 -- Tracks for void that play randomly
@@ -136,7 +160,8 @@ function antibirthmusicplusplus:void()
     if currentMusic == Music.MUSIC_JINGLE_GAME_START
     or currentMusic == Music.MUSIC_JINGLE_GAME_START_ALT then
       MusicM:Queue(VoidMusic[1])
-    elseif Game():GetRoom():IsFirstVisit() then
+    elseif Game():GetRoom():IsFirstVisit()
+    or not ModConfigSettings["void stage"] then
       MusicM:Crossfade(VoidMusic[1])
     else
       MusicM:Crossfade(VoidMusic[math.random(2,8)])
@@ -145,12 +170,15 @@ function antibirthmusicplusplus:void()
   
   -- Ordinary bosses
   if Game():GetLevel():GetStage() == LevelStage.STAGE7 
-  and (currentMusic == Music.MUSIC_BOSS or currentMusic == Music.MUSIC_BOSS2) then
+  and (currentMusic == Music.MUSIC_BOSS or currentMusic == Music.MUSIC_BOSS2)
+  and ModConfigSettings["void bosses"] then
     trackId = Isaac.GetMusicIdByName("The Void Boss " .. math.random(1,5))
     --trackId = Isaac.GetMusicIdByName("The Void Boss " .. 5)
     MusicM:Crossfade(trackId)
   end
 end
+
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.void)
 
 
 function antibirthmusicplusplus:greedlastwave()
@@ -169,6 +197,8 @@ function antibirthmusicplusplus:greedlastwave()
     MusicM:Queue(Music.MUSIC_BOSS_OVER)
   end
 end
+
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicplusplus.greedlastwave) 
 
 
 -- Ambush theme without intro for minibosses
@@ -189,6 +219,8 @@ function antibirthmusicplusplus:miniboss()
   end
 end
 
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.miniboss)
+
 
 -- Alt tracks that play randomly
 local BossToRandom = nil
@@ -201,6 +233,7 @@ local function UpdateBossToRandom()
   }
 end
 UpdateBossToRandom()
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UpdateBossToRandom)
 
 function antibirthmusicplusplus:alttracks()
   local MusicM = MusicManager()
@@ -218,21 +251,108 @@ function antibirthmusicplusplus:alttracks()
     MusicM:UpdateVolume()
   end
   if currentMusic == Music.MUSIC_ARCADE_ROOM
-  and BossToRandom["Arcade"] == 1 then
+  and BossToRandom["Arcade"] == 1 
+  and ModConfigSettings["alt arcade"] then
     MusicM:Play(Isaac.GetMusicIdByName("Arcade Alt"), 0)
     MusicM:UpdateVolume()
   end
 end
 
-  --Isaac.RenderText(,100,100,255,0,0,255)
-  --Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.ANGEL, -1)
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.intros)
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.bluebabyhush)
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicplusplus.megasatan)
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.void)
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_UPDATE, antibirthmusicplusplus.greedlastwave) 
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.miniboss)
-antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UpdateBossToRandom)
 antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_RENDER, antibirthmusicplusplus.alttracks)
 
- 
+
+-- ModConfig API
+local function AddBoolSetting(category, optionName, shortDescription, description)
+  
+  local BoolValues = {
+    [true] = "On",
+    [false] = "Off"
+  }
+  
+  ModConfigMenu.AddSetting(category, {
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    CurrentSetting = function() return ModConfigSettings[optionName] end,
+
+    Display = function() return shortDescription .. ": " .. BoolValues[ModConfigSettings[optionName]] end,
+
+    OnChange = function(val) ModConfigSettings[optionName] = val end,
+
+    Info = {description}
+  })
+end
+
+
+local resetSettings = false
+if ModConfigMenu then
+  
+  local category = "Antibirth Music++"
+  ModConfigMenu.UpdateCategory(category, {
+    Info = "Mudeth music mod with tweaks",
+  })
+  
+  AddBoolSetting(category, "boss intros", "Story Boss Intros", "Boss music starts playing during the intro screen")
+  
+  -- Mega Satan
+  local MegaSatanOptionValues = {
+    [0] = "Play both versions",
+    [1] = "Flagbearer",
+    [2] = "Spectrum of Sin",
+  }
+  ModConfigMenu.AddSetting(category, {
+
+    Type = ModConfigMenu.OptionType.NUMBER,
+
+    CurrentSetting = function() return ModConfigSettings["mega satan"] end,
+    
+    Minimum = 0,
+    Maximum = 2,
+
+    Display = function() return "Mega Satan music: " .. MegaSatanOptionValues[ModConfigSettings["mega satan"]] end,
+
+    OnChange = function(val) ModConfigSettings["mega satan"] = val end,
+
+    Info = {"Mega Satan music option"}
+  })
+
+  AddBoolSetting(category, "void stage", "Random stage music in the Void", "Music plays from a random starting position in the Void")
+  AddBoolSetting(category, "void bosses", "Random boss music in the Void", "Ordinary bosses in the Void have random music from different Isaac composers")
+  AddBoolSetting(category, "alt arcade", "Alt arcade music", "DannyB's arcade theme can be played with 10% probability")
+
+end
+
+
+local json = require("json")
+
+function antibirthmusicplusplus:SaveGame()
+    SaveState.Settings = {}
+
+    for i, v in pairs(ModConfigSettings) do
+        SaveState.Settings[tostring(i)] = ModConfigSettings[i]
+    end
+    antibirthmusicplusplus:SaveData(json.encode(SaveState))
+end
+
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, antibirthmusicplusplus.SaveGame)
+
+
+function antibirthmusicplusplus:OnGameStart(isSave)
+    if defaultsChanged then
+        antibirthmusicplusplus:SaveGame()
+    end
+
+    if antibirthmusicplusplus:HasData() then
+        SaveState = json.decode(antibirthmusicplusplus:LoadData())
+
+        for i, v in pairs(SaveState.Settings) do
+            ModConfigSettings[tostring(i)] = SaveState.Settings[i]
+        end
+    end
+end
+
+antibirthmusicplusplus:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, antibirthmusicplusplus.OnGameStart)
+
+
+  --Isaac.RenderText(,100,100,255,0,0,255)
+  --Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.ANGEL, -1)
